@@ -1,0 +1,17 @@
+{
+  "name": "controlled-merge",
+  "version": "1.0.0",
+  "description": "Merge two simple javascript objects, with controllable logic for conflicts.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "merge",
+    "combine",
+    "javascript",
+    "objects"
+  ],
+  "author": "Keith Chester",
+  "license": "MIT"
+}
