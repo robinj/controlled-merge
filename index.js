@@ -1,3 +1,5 @@
+var clone = require('clone');
+
 module.exports = function(){
 	var self = this;
 	
@@ -8,9 +10,9 @@ module.exports = function(){
 	if(typeof toMerge[0] == 'function') onConflict = toMerge.shift();
 	if(toMerge.length == 1){
 		if(Array.isArray(toMerge[0])){
-			toMerge = toMerge[0];
+			toMerge = clone(toMerge[0]);
 		} else if(typeof toMerge[0] == 'object'){
-			return toMerge[0];
+			return clone(toMerge[0]);
 		} else {
 			throw new Error('controlled-merge was called with only one argument. This is valid, but requires an object or array');
 		}
@@ -19,19 +21,20 @@ module.exports = function(){
 	var results = toMerge.shift();
 	
 	var iterateAndMerge = function(obj1, obj2){
+		var result = clone(obj1);
 		for(var attr in obj2){
-			if(!obj1[attr]){
-				obj1[attr] = obj2[attr];
-			} else if(typeof obj1[attr] == 'object' && typeof obj2[attr] == 'object'){
-				obj1[attr] = iterateAndMerge(obj1[attr], obj2[attr]);
+			if(!result[attr]){
+				result[attr] = clone(obj2[attr]);
+			} else if(typeof result[attr] == 'object' && typeof obj2[attr] == 'object'){
+				result[attr] = iterateAndMerge(obj1[attr], obj2[attr]);
 			} else if(onConflict){
-				obj1[attr] = onConflict(obj1[attr], obj2[attr]);
+				result[attr] = onConflict(obj1[attr], obj2[attr]);
 			} else {
-				obj1[attr] = obj2[attr];
+				result[attr] = clone(obj2[attr]);
 			}
 		}
 		
-		return obj1;
+		return result;
 	};
 	
 	toMerge.forEach(function(next){
