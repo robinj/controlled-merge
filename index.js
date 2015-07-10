@@ -6,7 +6,15 @@ module.exports = function(){
 	
 	var onConflict;
 	if(typeof toMerge[0] == 'function') onConflict = toMerge.shift();
-	if(toMerge.length == 1) return toMerge[0];
+	if(toMerge.length == 1){
+		if(Array.isArray(toMerge[0])){
+			toMerge = toMerge[0];
+		} else if(typeof toMerge[0] == 'object'){
+			return toMerge[0];
+		} else {
+			throw new Error('controlled-merge was called with only one argument. This is valid, but requires an object or array');
+		}
+	}
 	
 	var results = toMerge.shift();
 	
