@@ -1,3 +1,6 @@
+# controlled-merge-with-attribute
+Note: this is a fork of the controlled-merge node module, cretated as the original author is currently travelling and unable to accept pull requests. It's fully intended that this module will be deprecated once the PR has been accepted. Because of this, I have not changed any of the documentation. Any reference to controlled-merge should be replaced with controlled-merge-with-attribute.
+
 # controlled-merge
 
 controlled-merge is a utility function to merge a number of javascript objects into a singular object. It has an optional onConflict functionality that allows you to specify how to handle conflicts of the merge.
